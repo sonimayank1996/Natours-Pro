@@ -8,6 +8,10 @@ app.get('/', (req, res) => {
     res.send('Hello Bhai')
 });
 
+app.post('/', (req, res) => {
+    res.send('post request')
+});
+
 app.listen(port, () => {
     console.log(`server is started on port ${port}`)
 })
