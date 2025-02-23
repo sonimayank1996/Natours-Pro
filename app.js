@@ -1,11 +1,20 @@
 const express = require('express');
+const fs = require('fs');
+const { console } = require('inspector');
 
 const app = express();
 
 let port = 3000;
 
-app.get('/', (req, res) => {
-    res.send('Hello Bhai')
+const tours = JSON.parse(fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`));
+
+
+app.get('/api/v1/tours', (req, res) => {
+    console.log('tours', tours)
+    res.status(200).json({
+        status: 200,
+        tours
+    })
 });
 
 app.post('/', (req, res) => {
