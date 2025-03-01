@@ -46,19 +46,26 @@ const deleteTour = (req, res) => {
     })
 }
 
+const getAllUser = (req, res) => {
+    res.status(500).json({
+        status: 'failed'
+    })
+}
+const getUser = (req, res) => {}
+const createUser = (req, res) => {}
+const updateUser = (req, res) => {}
+const deleteUser = (req, res) => {}
+
 app.use((req, res, next) => {
     console.log('Hello middleware');
     next();   
 })
 
-// app.get('/api/v1/tours', getAllTour);
-// app.get('/api/v1/tours/:id', getTour);
-// app.patch('/api/v1/tours/:id', updateTour);
-// app.delete('/api/v1/tours/:id', deleteTour);
-// app.post('/api/v1/tours', createTour);
-
 app.route('/api/v1/tours').get(getAllTour).post(createTour);
 app.route('/api/v1/tours/:id').get(getTour).patch(updateTour).delete(deleteTour);
+
+app.route('/api/v1/users').get(getAllUser).post(createUser);
+app.route('/api/v1/users/:id').get(getUser).patch(updateUser).delete(deleteUser);
 
 app.listen(port, () => {
     console.log(`server is started on port ${port}`)
