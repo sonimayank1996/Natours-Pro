@@ -3,6 +3,9 @@ const fs = require('fs');
 
 const app = express();
 
+const tourRouter = express.Router();
+const userRouter = express.Router();
+
 let port = 3000;
 
 const tours = JSON.parse(fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`));
@@ -61,11 +64,14 @@ app.use((req, res, next) => {
     next();   
 })
 
-app.route('/api/v1/tours').get(getAllTour).post(createTour);
-app.route('/api/v1/tours/:id').get(getTour).patch(updateTour).delete(deleteTour);
+app.use('/api/v1/tours', tourRouter);
+app.use('/api/v1/users', userRouter);
 
-app.route('/api/v1/users').get(getAllUser).post(createUser);
-app.route('/api/v1/users/:id').get(getUser).patch(updateUser).delete(deleteUser);
+tourRouter.route('/').get(getAllTour).post(createTour);
+tourRouter.route('/:id').get(getTour).patch(updateTour).delete(deleteTour);
+
+userRouter.route('/').get(getAllUser).post(createUser);
+userRouter.route('/:id').get(getUser).patch(updateUser).delete(deleteUser);
 
 app.listen(port, () => {
     console.log(`server is started on port ${port}`)
